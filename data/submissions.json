@@ -50,5 +50,57 @@
         "kreatifTutarlilik": ""
       }
     }
+  },
+  {
+    "id": "ba359b1d-997b-4741-a7ff-1e8bc226fffe",
+    "createdAt": "2025-11-10T19:21:23.693Z",
+    "testiOlusturan": {
+      "ad": "Sezai Demirer",
+      "soyad": "d"
+    },
+    "testOzet": "Reklam yönetimi ön görüşme",
+    "sorular": {
+      "reklamAjans": {
+        "ayrilmaNedenleri": "asda",
+        "kpiDegerlendirme": "dasd",
+        "eksikAlanlar": "asdas",
+        "icerikYonetimi": "asdasd"
+      },
+      "dijitalButce": {
+        "genelButce": "asd",
+        "dagilim": "asd",
+        "mevsimsellik": "dasd",
+        "cpbRoas": "asd"
+      },
+      "performans": {
+        "seo": "asda",
+        "cro": "dasd",
+        "abTestleri": "asd",
+        "analytics": "asdsad"
+      },
+      "crm": {
+        "altyapi": "sadas",
+        "segmentasyon": "dasdasd",
+        "memnuniyet": "asd",
+        "otomasyon": "asdasdas"
+      },
+      "yapayZeka": {
+        "pazarlama": "dasd",
+        "iletisim": "ad",
+        "uretim": "adasdas"
+      },
+      "satisKanallari": {
+        "turOperatorleri": "dasd",
+        "direktRez": "asdasdasd",
+        "ota": "adsas",
+        "kampanyalar": "dasd"
+      },
+      "markaIletisim": {
+        "hedefKitle": "asdsa",
+        "degerler": "dasd",
+        "influencer": "asdas",
+        "kreatifTutarlilik": "dasd"
+      }
+    }
   }
 ]
