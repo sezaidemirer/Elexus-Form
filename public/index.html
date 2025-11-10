@@ -45,6 +45,38 @@
         overflow: hidden;
       }
 
+      .content-layout {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        gap: clamp(32px, 4vw, 56px);
+        align-items: flex-start;
+      }
+
+      .form-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: clamp(28px, 3vw, 40px);
+      }
+
+      .brand-panel {
+        flex: 0 0 clamp(180px, 18vw, 220px);
+        display: flex;
+        justify-content: center;
+        padding-top: clamp(12px, 2vw, 18px);
+      }
+
+      .brand-panel img {
+        width: 100%;
+        height: auto;
+        max-width: 220px;
+        filter: drop-shadow(0 18px 30px rgba(15, 23, 42, 0.25));
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.85);
+        padding: clamp(12px, 2vw, 18px);
+      }
+
       main::before {
         content: '';
         position: absolute;
@@ -315,6 +347,20 @@
         .question-row {
           grid-template-columns: 1fr;
         }
+
+        .content-layout {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .form-wrapper {
+          width: 100%;
+        }
+
+        .brand-panel {
+          width: 100%;
+          justify-content: center;
+        }
       }
 
       @media (max-width: 600px) {
@@ -346,7 +392,7 @@
   <body>
     <main>
       <header>
-        <h1>Elexus · Pazarlama & Performans Formu</h1>
+        <h1>Elexus · Dijital Pazarlama & Reklam Yönetimi Ön Bilgi Formu</h1>
         <p class="description">
           Soruların yanındaki alanlara yanıtlarınızı girin. Formu gönderdiğinizde veriler Join Lab Server veri havuzuna
           kaydedilir ve hiçbir kayıt silinmez. Tüm gönderimler şeffaf ve kalıcı biçimde arşivlenir. Join Agentleri,
