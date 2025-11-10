@@ -604,7 +604,7 @@
 
         try {
           const payload = formDataToObject(form);
-          const response = await fetch('/api/submissions', {
+          const response = await fetch('https://elexus-form.onrender.com/api/submissions', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
@@ -676,7 +676,7 @@
         resultsButton.textContent = 'Yükleniyor...';
 
         try {
-          const response = await fetch('/api/submissions');
+          const response = await fetch('https://elexus-form.onrender.com/api/submissions');
           if (!response.ok) {
             throw new Error('Test sonuçları alınamadı.');
           }
