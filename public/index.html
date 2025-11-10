@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elexus Formu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        font-family: 'Manrope', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        line-height: 1.55;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        background: radial-gradient(circle at 15% 20%, rgba(59, 130, 246, 0.16), transparent 55%),
+          radial-gradient(circle at 85% 10%, rgba(244, 114, 182, 0.12), transparent 50%),
+          radial-gradient(circle at 50% 80%, rgba(45, 212, 191, 0.1), transparent 45%), #0f172a;
+      }
+
+      main {
+        width: min(1200px, 95%);
+        margin: 48px auto 72px;
+        background: rgba(248, 250, 252, 0.92);
+        border-radius: 28px;
+        box-shadow: 0 35px 60px rgba(15, 23, 42, 0.28);
+        padding: clamp(24px, 4vw, 48px);
+        backdrop-filter: blur(12px);
+        position: relative;
+        overflow: hidden;
+      }
+
+      main::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(145deg, rgba(59, 130, 246, 0.08), rgba(236, 72, 153, 0.06));
+        pointer-events: none;
+      }
+
+      header {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        gap: 16px;
+        text-align: center;
+        margin-bottom: clamp(28px, 4vw, 48px);
+      }
+
+      h1 {
+        font-family: 'Space Grotesk', 'Manrope', sans-serif;
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        color: #0f172a;
+        letter-spacing: -0.02em;
+        margin: 0;
+      }
+
+      p.description {
+        color: #475569;
+        margin: 0 auto;
+        max-width: 720px;
+        font-size: clamp(1rem, 1.3vw, 1.12rem);
+      }
+
+      form {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        gap: clamp(24px, 2.5vw, 36px);
+      }
+
+      fieldset {
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        border-radius: 22px;
+        padding: clamp(20px, 2.8vw, 32px);
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(241, 245, 249, 0.9));
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      }
+
+      legend {
+        font-weight: 700;
+        font-size: clamp(1.05rem, 2vw, 1.18rem);
+        color: #1d4ed8;
+        padding: 0 10px;
+        letter-spacing: 0.01em;
+      }
+
+      .question-row {
+        display: grid;
+        grid-template-columns: minmax(240px, 1.1fr) 1fr;
+        gap: clamp(16px, 2vw, 24px);
+        align-items: start;
+        margin-bottom: clamp(16px, 2vw, 24px);
+      }
+
+      .question-row:last-of-type {
+        margin-bottom: 0;
+      }
+
+      label {
+        font-weight: 600;
+        color: #0f172a;
+        display: block;
+      }
+
+      .helper-text {
+        font-size: 0.82rem;
+        color: #64748b;
+        margin-top: 6px;
+      }
+
+      textarea,
+      input[type='text'],
+      input[type='number'] {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid rgba(148, 163, 184, 0.55);
+        border-radius: 14px;
+        font-size: 1rem;
+        resize: vertical;
+        min-height: 72px;
+        transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+        background-color: rgba(255, 255, 255, 0.95);
+        color: inherit;
+        box-shadow: 0 8px 14px rgba(15, 23, 42, 0.04);
+      }
+
+      textarea:focus,
+      input:focus {
+        outline: none;
+        border-color: rgba(37, 99, 235, 0.75);
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
+        transform: translateY(-1px);
+      }
+
+      textarea::placeholder,
+      input::placeholder {
+        color: #94a3b8;
+      }
+
+      .two-column {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: clamp(16px, 2vw, 24px);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+        margin-top: clamp(12px, 2vw, 20px);
+      }
+
+      button {
+        padding: 14px 24px;
+        border-radius: 16px;
+        border: none;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 1rem;
+        letter-spacing: 0.01em;
+        transition: transform 0.18s ease, box-shadow 0.22s ease, background 0.2s ease, filter 0.18s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      button::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        background: linear-gradient(120deg, rgba(255, 255, 255, 0.2), transparent 65%);
+      }
+
+      button:hover::after {
+        opacity: 1;
+      }
+
+      button svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      button[type='submit'] {
+        background: linear-gradient(135deg, #2563eb, #7c3aed);
+        color: #f8fafc;
+        box-shadow: 0 18px 30px rgba(79, 70, 229, 0.35);
+      }
+
+      button[type='submit']:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.03);
+      }
+
+      button.secondary {
+        background: rgba(226, 232, 240, 0.9);
+        color: #1e293b;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        box-shadow: 0 12px 22px rgba(15, 23, 42, 0.14);
+      }
+
+      button.secondary:hover {
+        transform: translateY(-2px);
+        background: rgba(226, 232, 240, 1);
+      }
+
+      .status {
+        margin-top: 8px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #1e293b;
+      }
+
+      .status.success {
+        color: #10b981;
+      }
+
+      .status.error {
+        color: #ef4444;
+      }
+
+      .results-panel {
+        margin-top: clamp(32px, 4vw, 48px);
+        border-radius: 24px;
+        background: rgba(15, 23, 42, 0.9);
+        padding: clamp(24px, 3vw, 36px);
+        color: #f8fafc;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+      }
+
+      .results-panel h2 {
+        margin: 0 0 clamp(16px, 2vw, 24px);
+        font-size: clamp(1.32rem, 2.6vw, 1.6rem);
+        letter-spacing: -0.01em;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .result-item {
+        border: 1px solid rgba(226, 232, 240, 0.08);
+        border-radius: 16px;
+        padding: 18px 20px;
+        background: rgba(30, 41, 59, 0.6);
+        box-shadow: 0 14px 24px rgba(15, 23, 42, 0.32);
+        margin-bottom: 16px;
+      }
+
+      .result-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .result-meta {
+        color: rgba(226, 232, 240, 0.8);
+        font-size: 0.92rem;
+        margin-bottom: 10px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .meta-pill {
+        background: rgba(96, 165, 250, 0.16);
+        border: 1px solid rgba(96, 165, 250, 0.28);
+        border-radius: 999px;
+        padding: 4px 12px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+      }
+
+      .result-summary {
+        font-size: 1rem;
+        color: rgba(248, 250, 252, 0.94);
+        margin: 0;
+      }
+
+      .empty-state {
+        margin: 0;
+        color: rgba(226, 232, 240, 0.65);
+        font-style: italic;
+      }
+
+      @media (max-width: 920px) {
+        .question-row {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 600px) {
+        body {
+          background: linear-gradient(160deg, #0f172a, #1e293b);
+        }
+
+        main {
+          border-radius: 0;
+          margin: 0;
+          min-height: 100vh;
+        }
+
+        fieldset {
+          border-radius: 18px;
+        }
+
+        button {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .actions {
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Elexus · Pazarlama & Performans Formu</h1>
+        <p class="description">
+          Soruların yanındaki alanlara yanıtlarınızı kaydedin. Formu gönderdikten sonra veriler GitHub deposuna eklenir
+          ve hiçbir kayıt silinmez. Gönderimleriniz şeffaf ve kalıcı olarak saklanır.
+        </p>
+      </header>
+
+      <form id="strategy-form">
+        <fieldset>
+          <legend>Test Bilgileri</legend>
+          <div class="two-column">
+            <label>
+              Testi oluşturan kişi - Adı
+              <input type="text" name="creatorFirstName" placeholder="Adınız" required />
+            </label>
+            <label>
+              Testi oluşturan kişi - Soyadı
+              <input type="text" name="creatorLastName" placeholder="Soyadınız" required />
+            </label>
+          </div>
+          <label style="display: block; margin-top: 16px">
+            Test sonuçları (özet)
+            <textarea name="testSummary" placeholder="Testin genel sonuçlarını yazınız" required></textarea>
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>A. Reklam Yönetimi &amp; Ajans Geçmişi</legend>
+          <div class="question-row">
+            <label for="a1">Geçmişte birlikte çalıştığınız ajans(lar)la yollarınızı ayırma nedenleri nelerdi?</label>
+            <textarea id="a1" name="agencySeparationReasons"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="a2">Önceki ajansın performansını hangi KPI’lara göre değerlendirdiniz?</label>
+            <textarea id="a2" name="agencyKpiEvaluation"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="a3"
+              >Reklam yönetiminde en çok eksik gördüğünüz alanlar nelerdi (strateji, raporlama, optimizasyon,
+              yaratıcılık, ROI)?</label
+            >
+            <textarea id="a3" name="agencyMissingAreas"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="a4">İçerik üretimi ajans üzerinden mi, yoksa otel bünyesinde mi yönetiliyordu?</label>
+            <textarea id="a4" name="contentProductionSource"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>B. Dijital Reklam Bütçesi &amp; Dağılımı</legend>
+          <div class="question-row">
+            <label for="b1">2024’te toplam dijital reklam bütçeniz ne kadardı, 2025 için öngörünüz nedir?</label>
+            <textarea id="b1" name="budgetOverview"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="b2">Google Ads, Meta Ads ve Taboola gibi mecralara oran olarak nasıl bir bütçe dağılımı yapıyorsunuz?</label>
+            <textarea id="b2" name="budgetDistribution"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="b3">Mevsimsellik ve kampanya dönemlerinde bütçe artış oranınız nedir?</label>
+            <textarea id="b3" name="seasonalBudgetIncrease"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="b4">Ortalama Cost per Booking (CPB) ya da ROAS (Return on Ad Spend) hedefiniz nedir?</label>
+            <textarea id="b4" name="cpbOrRoasTarget"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>C. SEO, CRO ve Performans Odaklı Çalışmalar</legend>
+          <div class="question-row">
+            <label for="c1">Halihazırda SEO optimizasyonu düzenli olarak yapılıyor mu (backlink, teknik SEO, içerik optimizasyonu vb.)?</label>
+            <textarea id="c1" name="seoPractices"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="c2">Web sitesinde dönüşüm oranı optimizasyonu (CRO) süreçleri uygulanıyor mu?</label>
+            <textarea id="c2" name="croProcesses"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="c3">A/B testleri, kullanıcı davranışı analizleri (Hotjar, VWO gibi) aktif mi?</label>
+            <textarea id="c3" name="abTestingStatus"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="c4">Web sitesi analytics araçları nelerdir (GA4, GTM, Looker Studio vs.)?</label>
+            <textarea id="c4" name="analyticsTools"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>D. CRM ve Veri Yönetimi</legend>
+          <div class="question-row">
+            <label for="d1">CRM altyapınız nedir (örneğin HubSpot, Zoho, Salesforce veya özel geliştirme)?</label>
+            <textarea id="d1" name="crmInfrastructure"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="d2">Müşteri segmentasyonu ve kampanya takibi bu sistem üzerinden mi yapılıyor?</label>
+            <textarea id="d2" name="segmentationTracking"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="d3">Rezervasyon sonrası misafir memnuniyet verileri CRM ile entegre mi?</label>
+            <textarea id="d3" name="postStayIntegration"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="d4">E-posta/SMS otomasyonları kullanıyor musunuz?</label>
+            <textarea id="d4" name="automationUsage"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>E. Yapay Zeka ve Otomasyon Sistemleri</legend>
+          <div class="question-row">
+            <label for="e1">Yapay zeka tabanlı pazarlama otomasyonları kullanıyor musunuz?</label>
+            <textarea id="e1" name="aiMarketingAutomation"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="e2">Chatbot veya yapay zeka destekli müşteri iletişimi var mı?</label>
+            <textarea id="e2" name="aiCustomerCommunication"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="e3">Görsel ya da metin üretiminde AI kullanımı var mı?</label>
+            <textarea id="e3" name="aiCreativeUsage"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>F. Satış Kanalları &amp; Oda Dağılımı</legend>
+          <div class="question-row">
+            <label for="f1">Ets, Tatilbudur, Prontotour gibi tur operatörlerine yıllık ortalama kaç oda veriyorsunuz?</label>
+            <textarea id="f1" name="tourOperatorAllocation"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="f2">Direkt rezervasyon oranınız toplam satışların yüzde kaçı?</label>
+            <textarea id="f2" name="directBookingShare"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="f3">OTA (Online Travel Agency) oranınız nedir?</label>
+            <textarea id="f3" name="otaShare"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="f4">Direkt satış oranını artırmak için özel kampanyalar veya CRM çalışmaları yapıyor musunuz?</label>
+            <textarea id="f4" name="directSalesInitiatives"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>G. Marka İmajı &amp; İletişim</legend>
+          <div class="question-row">
+            <label for="g1">Elexus’un hedef kitlesi son 1 yılda değişti mi?</label>
+            <textarea id="g1" name="targetAudienceChange"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="g2">Marka iletişiminde en çok önem verdiğiniz değerler neler?</label>
+            <textarea id="g2" name="brandValues"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="g3">Influencer veya celebrity iş birlikleri yaptınız mı, yapmayı düşünüyor musunuz?</label>
+            <textarea id="g3" name="influencerCollaborations"></textarea>
+          </div>
+          <div class="question-row">
+            <label for="g4">Görsel dilinizde tutarlılık sağlamak için merkezi bir yaratıcı ekip çalışması var mı?</label>
+            <textarea id="g4" name="creativeConsistency"></textarea>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <button type="button" class="secondary" id="view-results">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 13h2l2 7 4-14 3 10h6" />
+            </svg>
+            Test sonuçları
+          </button>
+          <button type="submit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+            Kaydet ve Gönder
+          </button>
+        </div>
+        <div id="form-status" class="status" role="status"></div>
+      </form>
+
+      <section class="results-panel" id="results-panel" hidden>
+        <h2>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;">
+            <path d="M3 3h18v4H3z" />
+            <path d="M7 13h3v8H7zM14 9h3v12h-3z" />
+          </svg>
+          Kaydedilmiş Test Sonuçları
+        </h2>
+        <div id="results-list"></div>
+      </section>
+    </main>
+
+    <script>
+      const form = document.getElementById('strategy-form');
+      const statusBox = document.getElementById('form-status');
+      const resultsButton = document.getElementById('view-results');
+      const resultsPanel = document.getElementById('results-panel');
+      const resultsList = document.getElementById('results-list');
+
+      function formDataToObject(formElement) {
+        const formData = new FormData(formElement);
+        const entries = Object.fromEntries(formData.entries());
+        return {
+          testiOlusturan: {
+            ad: entries.creatorFirstName || '',
+            soyad: entries.creatorLastName || '',
+          },
+          testOzet: entries.testSummary || '',
+          sorular: {
+            reklamAjans: {
+              ayrilmaNedenleri: entries.agencySeparationReasons || '',
+              kpiDegerlendirme: entries.agencyKpiEvaluation || '',
+              eksikAlanlar: entries.agencyMissingAreas || '',
+              icerikYonetimi: entries.contentProductionSource || '',
+            },
+            dijitalButce: {
+              genelButce: entries.budgetOverview || '',
+              dagilim: entries.budgetDistribution || '',
+              mevsimsellik: entries.seasonalBudgetIncrease || '',
+              cpbRoas: entries.cpbOrRoasTarget || '',
+            },
+            performans: {
+              seo: entries.seoPractices || '',
+              cro: entries.croProcesses || '',
+              abTestleri: entries.abTestingStatus || '',
+              analytics: entries.analyticsTools || '',
+            },
+            crm: {
+              altyapi: entries.crmInfrastructure || '',
+              segmentasyon: entries.segmentationTracking || '',
+              memnuniyet: entries.postStayIntegration || '',
+              otomasyon: entries.automationUsage || '',
+            },
+            yapayZeka: {
+              pazarlama: entries.aiMarketingAutomation || '',
+              iletisim: entries.aiCustomerCommunication || '',
+              uretim: entries.aiCreativeUsage || '',
+            },
+            satisKanallari: {
+              turOperatorleri: entries.tourOperatorAllocation || '',
+              direktRez: entries.directBookingShare || '',
+              ota: entries.otaShare || '',
+              kampanyalar: entries.directSalesInitiatives || '',
+            },
+            markaIletisim: {
+              hedefKitle: entries.targetAudienceChange || '',
+              degerler: entries.brandValues || '',
+              influencer: entries.influencerCollaborations || '',
+              kreatifTutarlilik: entries.creativeConsistency || '',
+            },
+          },
+        };
+      }
+
+      function setStatus(message, type = 'info') {
+        statusBox.textContent = message;
+        statusBox.className = `status ${type === 'success' ? 'success' : type === 'error' ? 'error' : ''}`;
+      }
+
+      async function submitForm(event) {
+        event.preventDefault();
+        setStatus('Veriler gönderiliyor, lütfen bekleyin...');
+
+        try {
+          const payload = formDataToObject(form);
+          const response = await fetch('/api/submissions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+
+          if (!response.ok) {
+            const errorBody = await response.json().catch(() => ({}));
+            throw new Error(errorBody.message || 'Sunucudan beklenmedik bir cevap alındı.');
+          }
+
+          const result = await response.json();
+          setStatus(result.message || 'Form başarıyla kaydedildi.', 'success');
+          form.reset();
+        } catch (error) {
+          console.error('Form gönderimi hatası:', error);
+          setStatus(`Kaydetme sırasında hata oluştu: ${error.message}`, 'error');
+        }
+      }
+
+      function renderResults(submissions) {
+        resultsList.innerHTML = '';
+
+        if (!submissions.length) {
+          const empty = document.createElement('p');
+          empty.className = 'empty-state';
+          empty.textContent = 'Henüz kayıtlı test sonucu bulunmuyor.';
+          resultsList.appendChild(empty);
+          return;
+        }
+
+        submissions
+          .slice()
+          .reverse()
+          .forEach((item) => {
+            const wrapper = document.createElement('article');
+            wrapper.className = 'result-item';
+
+            const meta = document.createElement('div');
+            meta.className = 'result-meta';
+
+            const userPill = document.createElement('span');
+            userPill.className = 'meta-pill';
+            userPill.textContent = `${item.testiOlusturan?.ad || ''} ${item.testiOlusturan?.soyad || ''}`.trim() || 'Anonim';
+
+            const datePill = document.createElement('span');
+            datePill.className = 'meta-pill';
+            const tarih = new Date(item.createdAt).toLocaleString('tr-TR', {
+              dateStyle: 'medium',
+              timeStyle: 'short',
+            });
+            datePill.textContent = tarih;
+
+            meta.appendChild(userPill);
+            meta.appendChild(datePill);
+
+            const summary = document.createElement('p');
+            summary.className = 'result-summary';
+            summary.textContent = item.testOzet ? item.testOzet : 'Test sonucu özeti girilmemiş.';
+
+            wrapper.appendChild(meta);
+            wrapper.appendChild(summary);
+            resultsList.appendChild(wrapper);
+          });
+      }
+
+      async function loadResults() {
+        setStatus('');
+        resultsButton.disabled = true;
+        resultsButton.textContent = 'Yükleniyor...';
+
+        try {
+          const response = await fetch('/api/submissions');
+          if (!response.ok) {
+            throw new Error('Test sonuçları alınamadı.');
+          }
+
+          const data = await response.json();
+          renderResults(data.submissions || []);
+          resultsPanel.hidden = false;
+          window.scrollTo({ top: resultsPanel.offsetTop - 16, behavior: 'smooth' });
+        } catch (error) {
+          console.error('Sonuçlar alınırken hata:', error);
+          setStatus(`Test sonuçları alınırken hata: ${error.message}`, 'error');
+        } finally {
+          resultsButton.disabled = false;
+          resultsButton.textContent = 'Test sonuçları';
+        }
+      }
+
+      form.addEventListener('submit', submitForm);
+      resultsButton.addEventListener('click', loadResults);
+    </script>
+  </body>
+</html>
+
