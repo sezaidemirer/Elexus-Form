@@ -51,16 +51,25 @@
         display: flex;
         gap: clamp(32px, 4vw, 56px);
         align-items: flex-start;
+        justify-content: space-between;
       }
 
       .form-wrapper {
-        flex: 1;
+        flex: 1 1 0;
+        min-width: 0;
         display: flex;
         flex-direction: column;
         gap: clamp(28px, 3vw, 40px);
       }
 
       .brand-panel {
+        flex: 0 0 clamp(180px, 18vw, 220px);
+        display: flex;
+        justify-content: center;
+        padding-top: clamp(12px, 2vw, 18px);
+      }
+
+      .accent-panel {
         flex: 0 0 clamp(180px, 18vw, 220px);
         display: flex;
         justify-content: center;
@@ -75,6 +84,16 @@
         border-radius: 18px;
         background: rgba(255, 255, 255, 0.85);
         padding: clamp(12px, 2vw, 18px);
+      }
+
+      .accent-panel img {
+        width: 100%;
+        height: auto;
+        max-width: 240px;
+        border-radius: 22px;
+        background: rgba(15, 23, 42, 0.08);
+        padding: clamp(10px, 2vw, 16px);
+        filter: drop-shadow(0 22px 40px rgba(15, 23, 42, 0.22));
       }
 
       main::before {
@@ -313,6 +332,93 @@
         margin-bottom: 0;
       }
 
+      .result-item button.toggle-answers {
+        margin-top: 12px;
+        padding: 10px 14px;
+        border-radius: 12px;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        background: rgba(96, 165, 250, 0.16);
+        color: rgba(226, 232, 240, 0.95);
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: transform 0.18s ease, box-shadow 0.22s ease, background 0.2s ease, border-color 0.18s ease;
+      }
+
+      .result-item button.toggle-answers:hover {
+        transform: translateY(-1px);
+        background: rgba(96, 165, 250, 0.24);
+        border-color: rgba(148, 163, 184, 0.5);
+        box-shadow: 0 12px 20px rgba(15, 23, 42, 0.28);
+      }
+
+      .result-details {
+        display: none;
+        margin-top: 16px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(148, 163, 184, 0.18);
+        animation: fadeIn 0.18s ease;
+      }
+
+      .result-details.active {
+        display: block;
+      }
+
+      .result-details-section {
+        margin-bottom: 18px;
+      }
+
+      .result-details-section:last-child {
+        margin-bottom: 0;
+      }
+
+      .result-details-section h3 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+        color: rgba(226, 232, 240, 0.88);
+      }
+
+      .result-details-section dl {
+        margin: 0;
+        display: grid;
+        gap: 10px;
+      }
+
+      .result-details-section dt {
+        font-weight: 600;
+        color: rgba(148, 163, 184, 0.95);
+      }
+
+      .result-details-section dd {
+        margin: 0;
+        background: rgba(15, 23, 42, 0.55);
+        border: 1px solid rgba(96, 165, 250, 0.22);
+        border-radius: 12px;
+        padding: 10px 12px;
+        color: rgba(248, 250, 252, 0.95);
+        white-space: pre-wrap;
+      }
+
+      .result-empty {
+        margin: 0;
+        color: rgba(226, 232, 240, 0.75);
+        font-style: italic;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-4px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
       .result-meta {
         color: rgba(226, 232, 240, 0.8);
         font-size: 0.92rem;
@@ -357,9 +463,14 @@
           width: 100%;
         }
 
-        .brand-panel {
+        .brand-panel,
+        .accent-panel {
           width: 100%;
           justify-content: center;
+        }
+
+        .accent-panel img {
+          max-width: 320px;
         }
       }
 
@@ -391,16 +502,21 @@
   </head>
   <body>
     <main>
-      <header>
+      <div class="content-layout">
+        <aside class="brand-panel" aria-hidden="true">
+          <img src="logo.svg" alt="Join X Elexus iş birliği logosu" />
+        </aside>
+        <div class="form-wrapper">
+          <header>
         <h1>Elexus · Dijital Pazarlama & Reklam Yönetimi Ön Bilgi Formu</h1>
         <p class="description">
           Soruların yanındaki alanlara yanıtlarınızı girin. Formu gönderdiğinizde veriler Join Lab Server veri havuzuna
           kaydedilir ve hiçbir kayıt silinmez. Tüm gönderimler şeffaf ve kalıcı biçimde arşivlenir. Join Agentleri,
           paylaştığınız verileri analiz ederek ihtiyaç duyulan rapor ve içgörüleri otomatik olarak hazırlar.
         </p>
-      </header>
+          </header>
 
-      <form id="strategy-form">
+          <form id="strategy-form">
         <fieldset>
           <legend>Test Bilgileri</legend>
           <div class="two-column">
@@ -415,7 +531,7 @@
           </div>
           <label style="display: block; margin-top: 16px">
             Form Detay Açıklama
-            <textarea name="testSummary" placeholder="Testin genel sonuçlarını yazınız" required></textarea>
+            <textarea name="testSummary" placeholder="Form doldurma amacını ya da diğer detayları giriniz" required></textarea>
           </label>
         </fieldset>
 
@@ -575,9 +691,9 @@
           </button>
         </div>
         <div id="form-status" class="status" role="status"></div>
-      </form>
+          </form>
 
-      <section class="results-panel" id="results-panel" hidden>
+          <section class="results-panel" id="results-panel" hidden>
         <h2>
           <svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;">
             <path d="M3 3h18v4H3z" />
@@ -586,7 +702,12 @@
           Kaydedilmiş Test Sonuçları
         </h2>
         <div id="results-list"></div>
-      </section>
+          </section>
+        </div>
+        <aside class="accent-panel" aria-hidden="true">
+          <img src="White.png" alt="Join Agent animasyon illüstrasyonu" />
+        </aside>
+      </div>
     </main>
 
     <script>
