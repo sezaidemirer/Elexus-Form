@@ -102,5 +102,57 @@
         "kreatifTutarlilik": "dasd"
       }
     }
+  },
+  {
+    "id": "a9c2299a-e7b5-4cdf-a756-26405ce8f624",
+    "createdAt": "2025-11-10T19:43:10.583Z",
+    "testiOlusturan": {
+      "ad": "Sezayi",
+      "soyad": "Demirer"
+    },
+    "testOzet": "Ön bilgi",
+    "sorular": {
+      "reklamAjans": {
+        "ayrilmaNedenleri": "Yetersiz oldukları",
+        "kpiDegerlendirme": "Rezervasyon sayısı",
+        "eksikAlanlar": "Hepsi",
+        "icerikYonetimi": "Farklı bir ajans"
+      },
+      "dijitalButce": {
+        "genelButce": "15.000 m tl",
+        "dagilim": "%70 ads %20neta %10taboola",
+        "mevsimsellik": "%10",
+        "cpbRoas": "Size bırakıyoruz"
+      },
+      "performans": {
+        "seo": "Evet yapılıyor",
+        "cro": "Uyhulanmıyor",
+        "abTestleri": "Değil",
+        "analytics": "Hepsi"
+      },
+      "crm": {
+        "altyapi": "Zoho",
+        "segmentasyon": "Hayır",
+        "memnuniyet": "Değil",
+        "otomasyon": "Evet"
+      },
+      "yapayZeka": {
+        "pazarlama": "Hayır",
+        "iletisim": "Evet",
+        "uretim": "Hayır"
+      },
+      "satisKanallari": {
+        "turOperatorleri": "Ets 12000 oda",
+        "direktRez": "%20",
+        "ota": "15",
+        "kampanyalar": "Evet"
+      },
+      "markaIletisim": {
+        "hedefKitle": "Hayır",
+        "degerler": "Sosyal medya",
+        "influencer": "Evet dusunuyoruz",
+        "kreatifTutarlilik": "Hayır"
+      }
+    }
   }
 ]
