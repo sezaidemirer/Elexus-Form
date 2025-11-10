@@ -64,40 +64,6 @@
         gap: clamp(28px, 3vw, 40px);
       }
 
-      .brand-panel {
-        flex: 0 0 clamp(160px, 12vw, 200px);
-        display: flex;
-        justify-content: center;
-        padding-top: clamp(12px, 2vw, 18px);
-      }
-
-      .accent-panel {
-        flex: 0 0 clamp(160px, 12vw, 200px);
-        display: flex;
-        justify-content: center;
-        padding-top: clamp(12px, 2vw, 18px);
-      }
-
-      .brand-panel img {
-        width: 100%;
-        height: auto;
-        max-width: 220px;
-        filter: drop-shadow(0 18px 30px rgba(15, 23, 42, 0.25));
-        border-radius: 18px;
-        background: rgba(255, 255, 255, 0.85);
-        padding: clamp(12px, 2vw, 18px);
-      }
-
-      .accent-panel img {
-        width: 100%;
-        height: auto;
-        max-width: 240px;
-        border-radius: 22px;
-        background: rgba(15, 23, 42, 0.08);
-        padding: clamp(10px, 2vw, 16px);
-        filter: drop-shadow(0 22px 40px rgba(15, 23, 42, 0.22));
-      }
-
       main::before {
         content: '';
         position: absolute;
@@ -488,11 +454,6 @@
           max-width: 940px;
           min-width: min(100%, 760px);
         }
-
-        .brand-panel,
-        .accent-panel {
-          flex-basis: clamp(150px, 18vw, 190px);
-        }
       }
 
       @media (max-width: 920px) {
@@ -520,15 +481,6 @@
           width: 100%;
         }
 
-        .brand-panel,
-        .accent-panel {
-          width: 100%;
-          justify-content: center;
-        }
-
-        .accent-panel img {
-          max-width: 320px;
-        }
       }
 
       @media (max-width: 600px) {
@@ -560,9 +512,6 @@
   <body>
     <main>
       <div class="content-layout">
-        <aside class="brand-panel" aria-hidden="true">
-          <img src="logo.svg" alt="Join X Elexus iş birliği logosu" />
-        </aside>
         <div class="form-wrapper">
       <header>
         <div class="headline">
@@ -769,9 +718,6 @@
         <div id="results-list"></div>
           </section>
         </div>
-        <aside class="accent-panel" aria-hidden="true">
-          <img src="White.png" alt="Join Agent animasyon illüstrasyonu" />
-        </aside>
       </div>
     </main>
 
