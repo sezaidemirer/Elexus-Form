@@ -716,6 +716,77 @@
       const resultsButton = document.getElementById('view-results');
       const resultsPanel = document.getElementById('results-panel');
       const resultsList = document.getElementById('results-list');
+      const questionSections = [
+        {
+          key: 'reklamAjans',
+          title: 'A. Reklam Yönetimi & Ajans Geçmişi',
+          fields: [
+            { key: 'ayrilmaNedenleri', label: 'Geçmişte birlikte çalıştığınız ajans(lar)la yollarınızı ayırma nedenleri nelerdi?' },
+            { key: 'kpiDegerlendirme', label: 'Önceki ajansın performansını hangi KPI’lara göre değerlendirdiniz?' },
+            { key: 'eksikAlanlar', label: 'Reklam yönetiminde en çok eksik gördüğünüz alanlar nelerdi?' },
+            { key: 'icerikYonetimi', label: 'İçerik üretimi ajans üzerinden mi, yoksa otel bünyesinde mi yönetiliyordu?' },
+          ],
+        },
+        {
+          key: 'dijitalButce',
+          title: 'B. Dijital Reklam Bütçesi & Dağılımı',
+          fields: [
+            { key: 'genelButce', label: '2024’te toplam dijital reklam bütçeniz ne kadardı, 2025 için öngörünüz nedir?' },
+            { key: 'dagilim', label: 'Google Ads, Meta Ads ve Taboola gibi mecralara oran olarak nasıl bir bütçe dağılımı yapıyorsunuz?' },
+            { key: 'mevsimsellik', label: 'Mevsimsellik ve kampanya dönemlerinde bütçe artış oranınız nedir?' },
+            { key: 'cpbRoas', label: 'Ortalama CPB ya da ROAS hedefiniz nedir? Bununla ilgili bir hedeflemeniz var mı?' },
+          ],
+        },
+        {
+          key: 'performans',
+          title: 'C. SEO, CRO ve Performans Odaklı Çalışmalar',
+          fields: [
+            { key: 'seo', label: 'Halihazırda SEO optimizasyonu düzenli olarak yapılıyor mu?' },
+            { key: 'cro', label: 'Web sitesinde dönüşüm oranı optimizasyonu (CRO) süreçleri uygulanıyor mu?' },
+            { key: 'abTestleri', label: 'A/B testleri, kullanıcı davranışı analizleri aktif mi?' },
+            { key: 'analytics', label: 'Web sitesi analytics araçları nelerdir?' },
+          ],
+        },
+        {
+          key: 'crm',
+          title: 'D. CRM ve Veri Yönetimi',
+          fields: [
+            { key: 'altyapi', label: 'CRM altyapınız nedir?' },
+            { key: 'segmentasyon', label: 'Müşteri segmentasyonu ve kampanya takibi bu sistem üzerinden mi yapılıyor?' },
+            { key: 'memnuniyet', label: 'Rezervasyon sonrası misafir memnuniyet verileri CRM ile entegre mi?' },
+            { key: 'otomasyon', label: 'E-posta/SMS otomasyonları kullanıyor musunuz?' },
+          ],
+        },
+        {
+          key: 'yapayZeka',
+          title: 'E. Yapay Zeka ve Otomasyon Sistemleri',
+          fields: [
+            { key: 'pazarlama', label: 'Yapay zeka tabanlı pazarlama otomasyonları kullanıyor musunuz?' },
+            { key: 'iletisim', label: 'Chatbot veya yapay zeka destekli müşteri iletişimi var mı?' },
+            { key: 'uretim', label: 'Görsel ya da metin üretiminde AI kullanımı var mı?' },
+          ],
+        },
+        {
+          key: 'satisKanallari',
+          title: 'F. Satış Kanalları & Oda Dağılımı',
+          fields: [
+            { key: 'turOperatorleri', label: 'Ets, Tatilbudur, Jolly Tur, Setur, Tatil Sepeti gibi tur operatörlerine yıllık ortalama kaç oda veriyorsunuz?' },
+            { key: 'direktRez', label: 'Direkt rezervasyon oranınız toplam satışların yüzde kaçı?' },
+            { key: 'ota', label: 'OTA (Online Travel Agency) oranınız nedir?' },
+            { key: 'kampanyalar', label: 'Direkt satış oranını artırmak için özel kampanyalar veya CRM çalışmaları yapıyor musunuz?' },
+          ],
+        },
+        {
+          key: 'markaIletisim',
+          title: 'G. Marka İmajı & İletişim',
+          fields: [
+            { key: 'hedefKitle', label: 'Elexus’un hedef kitlesi son 1 yılda değişti mi?' },
+            { key: 'degerler', label: 'Marka iletişiminde en çok önem verdiğiniz değerler neler?' },
+            { key: 'influencer', label: 'Influencer veya celebrity iş birlikleri yaptınız mı, yapmayı düşünüyor musunuz?' },
+            { key: 'kreatifTutarlilik', label: 'Görsel dilinizde tutarlılık sağlamak için merkezi bir yaratıcı ekip çalışması var mı?' },
+          ],
+        },
+      ];
 
       function formDataToObject(formElement) {
         const formData = new FormData(formElement);
@@ -843,8 +914,68 @@
             summary.className = 'result-summary';
             summary.textContent = item.testOzet ? item.testOzet : 'Test sonucu özeti girilmemiş.';
 
+          const toggleButton = document.createElement('button');
+          toggleButton.type = 'button';
+          toggleButton.className = 'toggle-answers';
+          toggleButton.textContent = 'Yanıtları göster';
+
+          const details = document.createElement('div');
+          details.className = 'result-details';
+
+          questionSections.forEach((section) => {
+            const sectionData = item.sorular?.[section.key];
+            if (!sectionData) return;
+
+            const fieldElements = section.fields
+              .map((field) => {
+                const value = (sectionData[field.key] || '').trim();
+                if (!value) return null;
+
+                const dt = document.createElement('dt');
+                dt.textContent = field.label;
+
+                const dd = document.createElement('dd');
+                dd.textContent = value;
+
+                return { dt, dd };
+              })
+              .filter(Boolean);
+
+            if (!fieldElements.length) return;
+
+            const sectionElement = document.createElement('section');
+            sectionElement.className = 'result-details-section';
+
+            const heading = document.createElement('h3');
+            heading.textContent = section.title;
+            sectionElement.appendChild(heading);
+
+            const list = document.createElement('dl');
+            fieldElements.forEach(({ dt, dd }) => {
+              list.appendChild(dt);
+              list.appendChild(dd);
+            });
+
+            sectionElement.appendChild(list);
+            details.appendChild(sectionElement);
+          });
+
+          if (!details.childElementCount) {
+            const empty = document.createElement('p');
+            empty.className = 'result-empty';
+            empty.textContent = 'Bu kayıtta detaylı yanıt bulunmuyor.';
+            details.appendChild(empty);
+          }
+
+          toggleButton.addEventListener('click', () => {
+            const isActive = details.classList.toggle('active');
+            toggleButton.textContent = isActive ? 'Yanıtları gizle' : 'Yanıtları göster';
+          });
+
             wrapper.appendChild(meta);
             wrapper.appendChild(summary);
+          wrapper.appendChild(toggleButton);
+          wrapper.appendChild(details);
             resultsList.appendChild(wrapper);
           });
       }
