@@ -1,0 +1,54 @@
+[
+  {
+    "id": "e2ed3dca-c531-4765-b4f8-175be0238f04",
+    "createdAt": "2025-11-10T18:34:20.919Z",
+    "testiOlusturan": {
+      "ad": "asdad",
+      "soyad": "sadsad"
+    },
+    "testOzet": "asd",
+    "sorular": {
+      "reklamAjans": {
+        "ayrilmaNedenleri": "",
+        "kpiDegerlendirme": "",
+        "eksikAlanlar": "",
+        "icerikYonetimi": ""
+      },
+      "dijitalButce": {
+        "genelButce": "",
+        "dagilim": "",
+        "mevsimsellik": "",
+        "cpbRoas": ""
+      },
+      "performans": {
+        "seo": "",
+        "cro": "",
+        "abTestleri": "",
+        "analytics": ""
+      },
+      "crm": {
+        "altyapi": "",
+        "segmentasyon": "",
+        "memnuniyet": "",
+        "otomasyon": ""
+      },
+      "yapayZeka": {
+        "pazarlama": "",
+        "iletisim": "",
+        "uretim": ""
+      },
+      "satisKanallari": {
+        "turOperatorleri": "",
+        "direktRez": "",
+        "ota": "",
+        "kampanyalar": ""
+      },
+      "markaIletisim": {
+        "hedefKitle": "",
+        "degerler": "",
+        "influencer": "",
+        "kreatifTutarlilik": ""
+      }
+    }
+  }
+]
